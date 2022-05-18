@@ -12,4 +12,9 @@ abstract class _CounterStore with Store {
   void increment() {
     count++;
   }
+
+  @action
+  void decrement() {
+    count--;
+  }
 }

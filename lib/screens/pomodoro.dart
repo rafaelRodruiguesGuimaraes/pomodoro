@@ -18,14 +18,19 @@ class Pomodoro extends StatelessWidget {
         children: [
           const Text('Pomodoro'),
           Row(
-            children: const [
-              TimeInput(
-                title: 'Trabalho',
-                value: 25,
-              ),
-              TimeInput(
-                title: 'Descanso',
-                value: 25,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Row(
+                children: const [
+                  TimeInput(
+                    title: 'Trabalho',
+                    value: 25,
+                  ),
+                  TimeInput(
+                    title: 'Descanso',
+                    value: 25,
+                  ),
+                ],
               ),
             ],
           ),
