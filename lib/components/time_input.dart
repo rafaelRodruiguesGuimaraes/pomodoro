@@ -6,10 +6,14 @@ class TimeInput extends StatelessWidget {
     Key? key,
     required this.title,
     required this.value,
+    required this.incrementTime,
+    required this.decrementTime,
   }) : super(key: key);
 
   final String title;
   final int value;
+  final Function incrementTime;
+  final Function decrementTime;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +31,7 @@ class TimeInput extends StatelessWidget {
         Row(
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => incrementTime(),
               child: const Icon(Icons.add),
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
@@ -42,7 +46,7 @@ class TimeInput extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => decrementTime(),
               child: const Icon(Icons.remove),
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),

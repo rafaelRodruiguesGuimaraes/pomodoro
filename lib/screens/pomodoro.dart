@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro/store/counter.store.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:pomodoro/store/pomodoro/pomodoro_store.dart';
+import 'package:provider/provider.dart';
 
 import '../components/pomodoro_stopwatch.dart';
 import '../components/time_input.dart';
 
 class Pomodoro extends StatelessWidget {
-  Pomodoro({Key? key}) : super(key: key);
-
-  final store = CounterStore();
+  const Pomodoro({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final store = Provider.of<PomodoroStore>(context);
+
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -24,17 +26,25 @@ class Pomodoro extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Row(
-                  children: const [
-                    TimeInput(
-                      title: 'Trabalho',
-                      value: 25,
+                  children: [
+                    Observer(
+                      builder: ((_) => TimeInput(
+                            title: 'Trabalho',
+                            value: store.workTime,
+                            incrementTime: store.incrementWorkTime,
+                            decrementTime: store.decrementWorkTime,
+                          )),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 40.0,
                     ),
-                    TimeInput(
-                      title: 'Descanso',
-                      value: 25,
+                    Observer(
+                      builder: ((_) => TimeInput(
+                            title: 'Descanso',
+                            value: store.restTime,
+                            incrementTime: store.incrementRestTime,
+                            decrementTime: store.decrementRestTime,
+                          )),
                     ),
                   ],
                 ),

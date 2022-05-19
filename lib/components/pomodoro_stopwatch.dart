@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro/components/stopwatch_button.dart';
 
 class PomodoroStopwatch extends StatelessWidget {
-  const PomodoroStopwatch({Key? key}) : super(key: key);
+  const PomodoroStopwatch({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
