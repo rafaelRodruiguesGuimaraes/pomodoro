@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro/store/counter.store.dart';
 
+import '../components/pomodoro_stopwatch.dart';
 import '../components/time_input.dart';
 
 class Pomodoro extends StatelessWidget {
@@ -11,28 +12,34 @@ class Pomodoro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Counter'),
-      ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Text('Pomodoro'),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Row(
-                children: const [
-                  TimeInput(
-                    title: 'Trabalho',
-                    value: 25,
-                  ),
-                  TimeInput(
-                    title: 'Descanso',
-                    value: 25,
-                  ),
-                ],
-              ),
-            ],
+          const Expanded(
+            child: PomodoroStopwatch(),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 45.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Row(
+                  children: const [
+                    TimeInput(
+                      title: 'Trabalho',
+                      value: 25,
+                    ),
+                    SizedBox(
+                      width: 40.0,
+                    ),
+                    TimeInput(
+                      title: 'Descanso',
+                      value: 25,
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
