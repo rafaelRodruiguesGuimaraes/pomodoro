@@ -14,7 +14,7 @@ class PomodoroStopwatch extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Hora de trabalhar',
+            'Time to work!',
             style: TextStyle(
               color: Colors.white,
               fontSize: 32.0,
@@ -36,19 +36,19 @@ class PomodoroStopwatch extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(right: 10.0),
                 child: StopwatchButton(
-                  title: 'Iniciar',
+                  title: 'Start',
                   buttonIcon: Icons.play_arrow,
                 ),
               ),
               // Padding(
               //   padding: EdgeInsets.only(right: 10.0),
               //   child: StopwatchButton(
-              //     title: 'Parar',
+              //     title: 'Stop',
               //     buttonIcon: Icons.stop,
               //   ),
               // ),
               StopwatchButton(
-                title: 'Reiniciar',
+                title: 'Restart',
                 buttonIcon: Icons.refresh,
               )
             ],
