@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro/screens/Pomodoro.dart';
+import 'package:pomodoro/screens/pomodoro.dart';
 
 void main() {
   runApp(const MyApp());
