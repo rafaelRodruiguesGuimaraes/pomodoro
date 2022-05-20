@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:mobx/mobx.dart';
 
 part 'pomodoro_store.g.dart';
@@ -11,42 +13,70 @@ abstract class _PomodoroStore with Store {
   bool isRunning = false;
 
   @observable
-  int minutes = 0;
+  int minutes = 1;
 
   @observable
   int seconds = 0;
 
   @observable
-  int workTime = 0;
+  int workTime = 1;
 
   @observable
-  int restTime = 0;
+  int restTime = 1;
 
   @observable
   IntervalType intervalType = IntervalType.resting;
 
+  Timer? stopwatch;
+
   @action
-  void startStop() {
-    isRunning = !isRunning;
+  void start() {
+    isRunning = true;
+
+    stopwatch = Timer.periodic(
+      const Duration(milliseconds: 50),
+      (timer) {
+        if (minutes == 0 && seconds == 0) {
+          _changeIntervalType();
+        } else if (seconds == 0) {
+          seconds = 59;
+          minutes--;
+        } else {
+          seconds--;
+        }
+      },
+    );
+  }
+
+  @action
+  void stop() {
+    isRunning = false;
+    stopwatch?.cancel();
   }
 
   @action
   void restart() {
-    isRunning = false;
-    minutes = 0;
+    //minutes = isWorking() ? workTime : restTime;
     seconds = 0;
-    workTime = 0;
-    restTime = 0;
+    stop();
   }
 
   @action
   void incrementWorkTime() {
     workTime++;
+    minutes = workTime;
+    if (isWorking()) {
+      restart();
+    }
   }
 
   @action
   void decrementWorkTime() {
     workTime <= 0 ? null : workTime--;
+    minutes = workTime;
+    if (isWorking()) {
+      restart();
+    }
   }
 
   @action
@@ -65,5 +95,16 @@ abstract class _PomodoroStore with Store {
 
   bool isResting() {
     return intervalType == IntervalType.resting;
+  }
+
+  void _changeIntervalType() {
+    if (isWorking()) {
+      intervalType = IntervalType.resting;
+      minutes = restTime;
+    } else {
+      intervalType = IntervalType.working;
+      minutes = workTime;
+    }
+    seconds = 0;
   }
 }

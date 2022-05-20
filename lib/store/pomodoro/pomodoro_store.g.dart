@@ -109,11 +109,22 @@ mixin _$PomodoroStore on _PomodoroStore, Store {
       ActionController(name: '_PomodoroStore', context: context);
 
   @override
-  void startStop() {
+  void start() {
     final _$actionInfo = _$_PomodoroStoreActionController.startAction(
-        name: '_PomodoroStore.startStop');
+        name: '_PomodoroStore.start');
     try {
-      return super.startStop();
+      return super.start();
+    } finally {
+      _$_PomodoroStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void stop() {
+    final _$actionInfo = _$_PomodoroStoreActionController.startAction(
+        name: '_PomodoroStore.stop');
+    try {
+      return super.stop();
     } finally {
       _$_PomodoroStoreActionController.endAction(_$actionInfo);
     }

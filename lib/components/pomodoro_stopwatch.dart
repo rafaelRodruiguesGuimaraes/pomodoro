@@ -13,41 +13,39 @@ class PomodoroStopwatch extends StatelessWidget {
   Widget build(BuildContext context) {
     final store = Provider.of<PomodoroStore>(context);
 
-    return Container(
-      color: store.isWorking() ? Colors.red : Colors.blue,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            store.isWorking() ? 'Time to work!' : 'Time to Rest!',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 32.0,
+    return Observer(
+      builder: (_) => Container(
+        color: store.isWorking() ? Colors.red : Colors.blue,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              store.isWorking() ? 'Time to work!' : 'Time to Rest!',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 32.0,
+              ),
             ),
-          ),
-          Observer(
-            builder: (_) => Text(
+            Text(
               '${store.minutes.toString().padLeft(2, '0')}:${store.seconds.toString().padLeft(2, '0')}',
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 100.0,
               ),
             ),
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          Observer(
-            builder: (_) => Row(
+            const SizedBox(
+              height: 20.0,
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                store.isRunning
+                !store.isRunning
                     ? Padding(
                         padding: const EdgeInsets.only(right: 10.0),
                         child: StopwatchButton(
                           title: 'Start',
                           buttonIcon: Icons.play_arrow,
-                          startStop: store.startStop,
+                          startStop: store.start,
                         ),
                       )
                     : Padding(
@@ -55,7 +53,7 @@ class PomodoroStopwatch extends StatelessWidget {
                         child: StopwatchButton(
                           title: 'Stop',
                           buttonIcon: Icons.stop,
-                          startStop: store.startStop,
+                          startStop: store.stop,
                         ),
                       ),
                 StopwatchButton(
@@ -65,8 +63,8 @@ class PomodoroStopwatch extends StatelessWidget {
                 )
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
